@@ -1,0 +1,28 @@
+project:
+  name: "@project.name@"
+
+spring:
+  application:
+    name: ${project.name}
+  kafka:
+    bootstrap-servers: localhost:9092
+    client-od: ${project.name}
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+inbound-channel:
+  topic: inbound-topic
+  group-id: inbound-topic-cg1
