@@ -13,18 +13,17 @@ import org.springframework.kafka.listener.ConsumerProperties;
 @Configuration
 public class IntegrationFlowConfig implements InitializingBean {
 
-    private static final Logger logger = LoggerFactory.getLogger(IntegrationFlowConfig.class);
+  private static final Logger logger = LoggerFactory.getLogger(IntegrationFlowConfig.class);
 
-    @Bean
-    public IntegrationFlow kafkaToKafkaFlow(ConsumerFactory<String, String> consumerFactory, ConsumerProperties consumerProperties) {
-        return IntegrationFlow.from(Kafka.inboundChannelAdapter(
-                consumerFactory, consumerProperties
-        ))
-                .handle(System.out::println).get();
-    }
+  @Bean
+  public IntegrationFlow kafkaToKafkaFlow(ConsumerFactory<String, String> consumerFactory,
+      ConsumerProperties consumerProperties) {
+    return IntegrationFlow.from(Kafka.inboundChannelAdapter(consumerFactory, consumerProperties))
+        .handle(System.out::println).get();
+  }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        logger.info("Integration flow configuration enabled.");
-    }
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    logger.info("Integration flow configuration enabled.");
+  }
 }

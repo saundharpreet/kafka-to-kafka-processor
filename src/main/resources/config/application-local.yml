@@ -1,9 +1,4 @@
-project:
-  name: "@project.name@"
-
 spring:
-  application:
-    name: ${project.name}
   kafka:
     bootstrap-servers: localhost:9092
     client-od: ${project.name}
@@ -13,15 +8,6 @@ spring:
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always
 
 inbound-channel:
   topic: inbound-topic

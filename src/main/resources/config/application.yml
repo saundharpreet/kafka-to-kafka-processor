@@ -1,0 +1,17 @@
+project:
+  name: "@project.name@"
+
+spring:
+  application:
+    name: ${project.name}
+  profiles:
+    active: local
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always

@@ -13,24 +13,24 @@ import org.springframework.kafka.listener.ConsumerProperties;
 @EnableIntegration
 public class IntegrationConfig implements InitializingBean {
 
-    private static final Logger logger = LoggerFactory.getLogger(IntegrationConfig.class);
+  private static final Logger logger = LoggerFactory.getLogger(IntegrationConfig.class);
 
-    @Value("${inbound-channel.topic}")
-    private String inboundTopic;
+  @Value("${inbound-channel.topic}")
+  private String inboundTopic;
 
-    @Value("${inbound-channel.group-id}")
-    private String groupId;
+  @Value("${inbound-channel.group-id}")
+  private String groupId;
 
-    @Bean
-    public ConsumerProperties consumerProperties() {
-        ConsumerProperties consumerProperties = new ConsumerProperties(inboundTopic);
-        consumerProperties.setGroupId(groupId);
+  @Bean
+  public ConsumerProperties consumerProperties() {
+    ConsumerProperties consumerProperties = new ConsumerProperties(inboundTopic);
+    consumerProperties.setGroupId(groupId);
 
-        return consumerProperties;
-    }
+    return consumerProperties;
+  }
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        logger.info("Integration configuration enabled.");
-    }
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    logger.info("Integration configuration enabled.");
+  }
 }

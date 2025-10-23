@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.4</version>
+		<groupId>com.harpreetsaund</groupId>
+		<artifactId>top-cat-pom</artifactId>
+		<version>1.0.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -14,27 +14,17 @@
 	<artifactId>kafka-to-kafka-processor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
-
-	<url/>
+	<name>kafka-to-kafka-processor</name>
+	<description>Spring Boot application that consumes from an input Kafka topic, transforms messages, and produces to an output Kafka topic.</description>
 
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection>scm:git:git@github.com:saundharpreet/kafka-to-kafka-processor.git</connection>
+		<developerConnection>scm:git:git@github.com:saundharpreet/kafka-to-kafka-processor.git</developerConnection>
+		<url>https://github.com/saundharpreet/kafka-to-kafka-processor</url>
+		<tag>HEAD</tag>
 	</scm>
 
-	<properties>
-		<java.version>17</java.version>
-	</properties>
-
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -43,10 +33,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-integration</artifactId>
@@ -55,6 +47,7 @@
 			<groupId>org.springframework.integration</groupId>
 			<artifactId>spring-integration-kafka</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
@@ -77,5 +70,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
