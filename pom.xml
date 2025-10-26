@@ -1,73 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>com.harpreetsaund</groupId>
-		<artifactId>top-cat-pom</artifactId>
-		<version>1.0.0</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+    <parent>
+        <groupId>com.harpreetsaund</groupId>
+        <artifactId>top-cat-pom</artifactId>
+        <version>1.0.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-	<groupId>com.example</groupId>
-	<artifactId>kafka-to-kafka-processor</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+    <groupId>com.example</groupId>
+    <artifactId>kafka-to-kafka-processor</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
-	<name>kafka-to-kafka-processor</name>
-	<description>Spring Boot application that consumes from an input Kafka topic, transforms messages, and produces to an output Kafka topic.</description>
+    <name>kafka-to-kafka-processor</name>
+    <description>Spring Boot application that consumes from an input Kafka topic, transforms messages, and produces to
+        an output Kafka topic.
+    </description>
 
-	<scm>
-		<connection>scm:git:git@github.com:saundharpreet/kafka-to-kafka-processor.git</connection>
-		<developerConnection>scm:git:git@github.com:saundharpreet/kafka-to-kafka-processor.git</developerConnection>
-		<url>https://github.com/saundharpreet/kafka-to-kafka-processor</url>
-		<tag>HEAD</tag>
-	</scm>
+    <scm>
+        <connection>scm:git:git@github.com:saundharpreet/kafka-to-kafka-processor.git</connection>
+        <developerConnection>scm:git:git@github.com:saundharpreet/kafka-to-kafka-processor.git</developerConnection>
+        <url>https://github.com/saundharpreet/kafka-to-kafka-processor</url>
+        <tag>HEAD</tag>
+    </scm>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.kafka</groupId>
-			<artifactId>spring-kafka</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-integration</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.integration</groupId>
-			<artifactId>spring-integration-kafka</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-integration</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-kafka</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
+        <dependency>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

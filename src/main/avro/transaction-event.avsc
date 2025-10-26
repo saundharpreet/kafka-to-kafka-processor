@@ -1,0 +1,81 @@
+{
+  "namespace": "com.harpreetsaund.transaction.avro",
+  "type": "record",
+  "name": "EventEnvelope",
+  "fields": [
+    {
+      "name": "eventId",
+      "type": "string",
+      "doc": "Unique ID for traceability"
+    },
+    {
+      "name": "sourceSystem",
+      "type": "string",
+      "doc": "Source system identifier (e.g., MQ, FILE, KAFKA)"
+    },
+    {
+      "name": "targetSystem",
+      "type": "string",
+      "doc": "Target system identifier"
+    },
+    {
+      "name": "topicName",
+      "type": "string",
+      "doc": "Kafka topic name for routing"
+    },
+    {
+      "name": "eventType",
+      "type": "string",
+      "doc": "Type of event or data (e.g., CustomerCreated, FileUpload, etc.)"
+    },
+    {
+      "name": "timestamp",
+      "type": "long",
+      "doc": "Epoch timestamp of message creation"
+    },
+    {
+      "name": "payloadSchemaVersion",
+      "type": "string",
+      "doc": "Version of the payload schema"
+    },
+    {
+      "name": "transaction",
+      "type": {
+        "type": "record",
+        "name": "Transaction",
+        "fields": [
+          {
+            "name": "transactionId",
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "type": "string"
+          },
+          {
+            "name": "amount",
+            "type": "double"
+          },
+          {
+            "name": "currency",
+            "type": "string"
+          },
+          {
+            "name": "timestamp",
+            "type": "long"
+          }
+        ]
+      },
+      "doc": "Embedded transaction details"
+    },
+    {
+      "name": "headers",
+      "type": {
+        "type": "map",
+        "values": "string"
+      },
+      "default": {},
+      "doc": "Arbitrary metadata, tracing info, etc."
+    }
+  ]
+}
