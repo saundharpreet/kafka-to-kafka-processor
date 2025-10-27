@@ -1,0 +1,6 @@
+       01  TRANSACTION-RECORD.
+           05  TRANSACTION-ID         PIC X(20).       *> Java String
+           05  ACCOUNT-ID             PIC X(20).       *> Java String
+           05  AMOUNT                 PIC 9(13)V99.    *> Java double (15 digits total, 2 decimals)
+           05  CURRENCY               PIC X(3).        *> Java String (ISO code)
+           05  TIMESTAMP              PIC 9(18).       *> Java long (epoch time)

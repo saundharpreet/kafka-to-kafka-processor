@@ -1,14 +1,24 @@
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
-    client-od: ${project.name}
+    bootstrap-servers: "localhost:9092,localhost:9093,localhost:9094"
+    properties:
+      "[schema.registry.url]": "http://localhost:8081"
+    client-id: ${project.name}
     consumer:
+      properties:
+        "[specific.avro.reader]": true
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
 
 inbound-channel:
-  topic: inbound-topic
-  group-id: inbound-topic-cg1
+  topic: raw-transaction-event
+  group-id: raw-transaction-event-cg1
+
+outbound-channel:
+  topic: transaction-event
+
+recovery-channel:
+  topic: transaction-event-dlq
