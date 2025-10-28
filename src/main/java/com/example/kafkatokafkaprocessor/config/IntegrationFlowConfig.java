@@ -29,13 +29,17 @@ public class IntegrationFlowConfig implements InitializingBean {
 
     @Bean
     public IntegrationFlow kafkaToKafkaFlow(ConcurrentMessageListenerContainer<String, EventEnvelope> listenerContainer,
-            EventFilterService eventFilterService, EventTransformService eventTransformService) {
+            EventFilterService eventFilterService, EventTransformService eventTransformService,
+            KafkaTemplate<String, com.harpreetsaund.transaction.avro.EventEnvelope> kafkaTemplate) {
         return IntegrationFlow
                 .from(Kafka.messageDrivenChannelAdapter(listenerContainer,
                         KafkaMessageDrivenChannelAdapter.ListenerMode.record))
                 .filter(eventFilterService, "filterEvent", spec -> spec.discardChannel("discardChannel"))
                 .transform(eventTransformService, "transformEvent") //
-                .channel("outboundKafkaChannel") //
+                .handle(Kafka.outboundChannelAdapter(kafkaTemplate)
+                        .topicExpression(new LiteralExpression(outboundTopic))
+                        .sendSuccessChannel("outboundKafkaSuccessChannel")
+                        .sendFailureChannel("outboundKafkaFailureChannel")) //
                 .get();
     }
 
@@ -43,18 +47,6 @@ public class IntegrationFlowConfig implements InitializingBean {
     @ServiceActivator(inputChannel = "discardChannel")
     public MessageHandler handleDiscardedMessage() {
         return message -> logger.info("Discarded event: {}", message);
-    }
-
-    @Bean
-    @ServiceActivator(inputChannel = "outboundKafkaChannel")
-    public MessageHandler outboundMessageHandler(
-            KafkaTemplate<String, com.harpreetsaund.transaction.avro.EventEnvelope> kafkaTemplate) throws Exception {
-        KafkaProducerMessageHandler<String, com.harpreetsaund.transaction.avro.EventEnvelope> handler = new KafkaProducerMessageHandler<>(
-                kafkaTemplate);
-        handler.setTopicExpression(new LiteralExpression(outboundTopic));
-        handler.setSendSuccessChannelName("outboundKafkaSuccessChannel");
-        handler.setSendFailureChannelName("outboundKafkaFailureChannel");
-        return handler;
     }
 
     @Bean

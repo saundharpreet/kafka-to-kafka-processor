@@ -32,11 +32,6 @@ public class IntegrationConfig implements InitializingBean {
     }
 
     @Bean
-    public MessageChannel outboundKafkaChannel() {
-        return MessageChannels.direct().getObject();
-    }
-
-    @Bean
     public MessageChannel outboundKafkaSuccessChannel() {
         return MessageChannels.direct().getObject();
     }
