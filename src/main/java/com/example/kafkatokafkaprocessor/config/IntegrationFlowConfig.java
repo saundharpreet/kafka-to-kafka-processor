@@ -14,7 +14,6 @@ import org.springframework.integration.annotation.ServiceActivator;
 import org.springframework.integration.dsl.IntegrationFlow;
 import org.springframework.integration.kafka.dsl.Kafka;
 import org.springframework.integration.kafka.inbound.KafkaMessageDrivenChannelAdapter;
-import org.springframework.integration.kafka.outbound.KafkaProducerMessageHandler;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.messaging.MessageHandler;
