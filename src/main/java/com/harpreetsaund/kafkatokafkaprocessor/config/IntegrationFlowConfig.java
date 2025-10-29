@@ -1,7 +1,7 @@
-package com.example.kafkatokafkaprocessor.config;
+package com.harpreetsaund.kafkatokafkaprocessor.config;
 
-import com.example.kafkatokafkaprocessor.service.EventFilterService;
-import com.example.kafkatokafkaprocessor.service.EventTransformService;
+import com.harpreetsaund.kafkatokafkaprocessor.service.EventFilterService;
+import com.harpreetsaund.kafkatokafkaprocessor.service.EventTransformService;
 import com.harpreetsaund.common.avro.EventEnvelope;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

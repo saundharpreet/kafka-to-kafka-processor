@@ -1,6 +1,6 @@
-package com.example.kafkatokafkaprocessor.service;
+package com.harpreetsaund.kafkatokafkaprocessor.service;
 
-import com.example.kafkatokafkaprocessor.mapper.TransactionEventMapper;
+import com.harpreetsaund.kafkatokafkaprocessor.mapper.TransactionEventMapper;
 import com.harpreetsaund.common.avro.EventEnvelope;
 import com.harpreetsaund.transaction.avro.Transaction;
 import org.springframework.integration.support.MessageBuilder;

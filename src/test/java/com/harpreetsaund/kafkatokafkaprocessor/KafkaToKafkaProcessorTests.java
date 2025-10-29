@@ -1,4 +1,4 @@
-package com.example.kafkatokafkaprocessor;
+package com.harpreetsaund.kafkatokafkaprocessor;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

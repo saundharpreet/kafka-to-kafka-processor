@@ -1,4 +1,4 @@
-package com.example.kafkatokafkaprocessor.config;
+package com.harpreetsaund.kafkatokafkaprocessor.config;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

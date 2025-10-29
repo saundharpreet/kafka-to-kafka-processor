@@ -1,4 +1,4 @@
-package com.example.kafkatokafkaprocessor.service;
+package com.harpreetsaund.kafkatokafkaprocessor.service;
 
 import com.harpreetsaund.common.avro.EventEnvelope;
 import org.apache.commons.lang3.StringUtils;

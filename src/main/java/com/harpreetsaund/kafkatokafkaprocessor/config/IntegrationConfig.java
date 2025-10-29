@@ -1,4 +1,4 @@
-package com.example.kafkatokafkaprocessor.config;
+package com.harpreetsaund.kafkatokafkaprocessor.config;
 
 import com.harpreetsaund.common.avro.EventEnvelope;
 import org.slf4j.Logger;

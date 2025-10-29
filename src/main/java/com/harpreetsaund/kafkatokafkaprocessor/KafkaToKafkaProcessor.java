@@ -1,4 +1,4 @@
-package com.example.kafkatokafkaprocessor;
+package com.harpreetsaund.kafkatokafkaprocessor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

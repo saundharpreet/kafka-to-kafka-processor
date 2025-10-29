@@ -1,4 +1,4 @@
-package com.example.kafkatokafkaprocessor.mapper;
+package com.harpreetsaund.kafkatokafkaprocessor.mapper;
 
 import com.harpreetsaund.transaction.avro.Transaction;
 import org.apache.commons.lang3.StringUtils;
