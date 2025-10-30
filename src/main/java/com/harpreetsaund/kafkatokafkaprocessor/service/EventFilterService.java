@@ -1,6 +1,8 @@
 package com.harpreetsaund.kafkatokafkaprocessor.service;
 
-import com.harpreetsaund.common.avro.EventEnvelope;
+import com.harpreetsaund.raw.transaction.avro.EventHeaders;
+import com.harpreetsaund.raw.transaction.avro.EventPayload;
+import com.harpreetsaund.raw.transaction.avro.RawTransactionEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,38 +15,42 @@ public class EventFilterService {
 
     private static final Logger logger = LoggerFactory.getLogger(EventFilterService.class);
 
-    @Value("${outbound-channel.topic}")
-    private String outboundTopic;
+    @Value("${inbound-channel.topic}")
+    private String inboundTopic;
 
-    public Boolean filterEvent(Message<EventEnvelope> message) {
-        EventEnvelope eventEnvelope = message.getPayload();
+    public Boolean filterEvent(Message<RawTransactionEvent> message) {
+        logger.debug("Filtering message: {}", message);
 
-        if (!StringUtils.equalsIgnoreCase("Kafka", eventEnvelope.getSourceSystem())) {
-            logger.info("Event filtered out: {}", eventEnvelope);
+        RawTransactionEvent rawTransactionEvent = message.getPayload();
+
+        EventHeaders eventHeaders = rawTransactionEvent.getHeaders();
+        if (!StringUtils.equalsIgnoreCase("Kafka", eventHeaders.getSourceSystem())) {
+            logger.info("Event filtered out: {}", eventHeaders);
             return Boolean.FALSE;
         }
 
-        if (!StringUtils.equalsIgnoreCase("Kafka", eventEnvelope.getTargetSystem())) {
-            logger.info("Event filtered out: {}", eventEnvelope);
+        if (!StringUtils.equalsIgnoreCase("Kafka", eventHeaders.getTargetSystem())) {
+            logger.info("Event filtered out: {}", eventHeaders);
             return Boolean.FALSE;
         }
 
-        if (!StringUtils.equalsIgnoreCase(outboundTopic, eventEnvelope.getTopicName())) {
-            logger.info("Event filtered out: {}", eventEnvelope);
+        if (!StringUtils.equalsIgnoreCase(inboundTopic, eventHeaders.getTopicName())) {
+            logger.info("Event filtered out: {}", eventHeaders);
             return Boolean.FALSE;
         }
 
-        if (!StringUtils.equalsIgnoreCase("Transaction", eventEnvelope.getEventType())) {
-            logger.info("Event filtered out: {}", eventEnvelope);
+        if (!StringUtils.equalsIgnoreCase("Transaction", eventHeaders.getEventType())) {
+            logger.info("Event filtered out: {}", eventHeaders);
             return Boolean.FALSE;
         }
 
-        if (StringUtils.length(eventEnvelope.getPayload()) != 48) {
-            logger.info("Event filtered out: {}", eventEnvelope);
+        EventPayload eventPayload = rawTransactionEvent.getPayload();
+        if (StringUtils.length(eventPayload.getPayload()) != 48) {
+            logger.info("Event filtered out: {}", eventPayload);
             return Boolean.FALSE;
         }
 
-        logger.debug("Event allowed: {}", eventEnvelope);
+        logger.debug("Event allowed: {}", rawTransactionEvent);
         return Boolean.TRUE;
     }
 }

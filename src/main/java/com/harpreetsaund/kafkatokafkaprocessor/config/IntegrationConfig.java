@@ -1,6 +1,6 @@
 package com.harpreetsaund.kafkatokafkaprocessor.config;
 
-import com.harpreetsaund.common.avro.EventEnvelope;
+import com.harpreetsaund.raw.transaction.avro.RawTransactionEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -41,7 +41,7 @@ public class IntegrationConfig implements InitializingBean {
         return MessageChannels.direct().getObject();
     }
 
-    @Bean
+    @Bean(name = "containerProperties")
     public ContainerProperties containerProperties() {
         ContainerProperties containerProperties = new ContainerProperties(inboundTopic);
         containerProperties.setGroupId(groupId);
@@ -49,10 +49,10 @@ public class IntegrationConfig implements InitializingBean {
         return containerProperties;
     }
 
-    @Bean
-    public ConcurrentMessageListenerContainer<String, EventEnvelope> listenerContainer(
-            ConsumerFactory<String, EventEnvelope> consumerFactory, ContainerProperties containerProperties) {
-        ConcurrentMessageListenerContainer<String, EventEnvelope> listenerContainer = new ConcurrentMessageListenerContainer<>(
+    @Bean(name = "listenerContainer")
+    public ConcurrentMessageListenerContainer<String, RawTransactionEvent> listenerContainer(
+            ConsumerFactory<String, RawTransactionEvent> consumerFactory, ContainerProperties containerProperties) {
+        ConcurrentMessageListenerContainer<String, RawTransactionEvent> listenerContainer = new ConcurrentMessageListenerContainer<>(
                 consumerFactory, containerProperties);
         listenerContainer.setConcurrency(1);
 

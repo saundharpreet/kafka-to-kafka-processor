@@ -2,7 +2,8 @@ package com.harpreetsaund.kafkatokafkaprocessor.config;
 
 import com.harpreetsaund.kafkatokafkaprocessor.service.EventFilterService;
 import com.harpreetsaund.kafkatokafkaprocessor.service.EventTransformService;
-import com.harpreetsaund.common.avro.EventEnvelope;
+import com.harpreetsaund.raw.transaction.avro.RawTransactionEvent;
+import com.harpreetsaund.transaction.avro.TransactionEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -27,12 +28,15 @@ public class IntegrationFlowConfig implements InitializingBean {
     private String outboundTopic;
 
     @Bean
-    public IntegrationFlow kafkaToKafkaFlow(ConcurrentMessageListenerContainer<String, EventEnvelope> listenerContainer,
+    public IntegrationFlow kafkaToKafkaFlow(
+            ConcurrentMessageListenerContainer<String, RawTransactionEvent> listenerContainer,
             EventFilterService eventFilterService, EventTransformService eventTransformService,
-            KafkaTemplate<String, com.harpreetsaund.transaction.avro.EventEnvelope> kafkaTemplate) {
+            KafkaTemplate<String, TransactionEvent> kafkaTemplate) {
         return IntegrationFlow
-                .from(Kafka.messageDrivenChannelAdapter(listenerContainer,
-                        KafkaMessageDrivenChannelAdapter.ListenerMode.record))
+                .from(Kafka
+                        .messageDrivenChannelAdapter(listenerContainer,
+                                KafkaMessageDrivenChannelAdapter.ListenerMode.record)
+                        .payloadType(RawTransactionEvent.class))
                 .filter(eventFilterService, "filterEvent", spec -> spec.discardChannel("discardChannel"))
                 .transform(eventTransformService, "transformEvent") //
                 .handle(Kafka.outboundChannelAdapter(kafkaTemplate)
@@ -45,7 +49,7 @@ public class IntegrationFlowConfig implements InitializingBean {
     @Bean
     @ServiceActivator(inputChannel = "discardChannel")
     public MessageHandler handleDiscardedMessage() {
-        return message -> logger.info("Discarded event: {}", message);
+        return message -> logger.debug("Discarded event: {}", message);
     }
 
     @Bean

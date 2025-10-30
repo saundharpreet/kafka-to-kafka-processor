@@ -22,3 +22,7 @@ outbound-channel:
 
 recovery-channel:
   topic: transaction-event-dlq
+
+logging:
+  level:
+    com.harpreetsaund: DEBUG

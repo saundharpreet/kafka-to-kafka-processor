@@ -9,5 +9,4 @@ public class KafkaToKafkaProcessor {
     public static void main(String[] args) {
         SpringApplication.run(KafkaToKafkaProcessor.class, args);
     }
-
 }

@@ -1,60 +1,65 @@
 {
-  "namespace": "com.harpreetsaund.common.avro",
+  "namespace": "com.harpreetsaund.raw.transaction.avro",
   "type": "record",
-  "name": "EventEnvelope",
+  "name": "RawTransactionEvent",
   "fields": [
-    {
-      "name": "eventId",
-      "type": "string",
-      "doc": "Unique ID for traceability"
-    },
-    {
-      "name": "sourceSystem",
-      "type": "string",
-      "doc": "Source system identifier (e.g., MQ, FILE, KAFKA)"
-    },
-    {
-      "name": "targetSystem",
-      "type": "string",
-      "doc": "Target system identifier"
-    },
-    {
-      "name": "topicName",
-      "type": "string",
-      "doc": "Kafka topic name for routing"
-    },
-    {
-      "name": "eventType",
-      "type": "string",
-      "doc": "Type of event or data (e.g., CustomerCreated, FileUpload, etc.)"
-    },
-    {
-      "name": "timestamp",
-      "type": "long",
-      "doc": "Epoch timestamp of message creation"
-    },
-    {
-      "name": "payloadSchemaVersion",
-      "type": "string",
-      "doc": "Version of the payload schema"
-    },
-    {
-      "name": "payload",
-      "type": [
-        "null",
-        "string"
-      ],
-      "default": null,
-      "doc": "JSON-serialized or Base64 payload for flexibility"
-    },
     {
       "name": "headers",
       "type": {
-        "type": "map",
-        "values": "string"
-      },
-      "default": {},
-      "doc": "Arbitrary metadata, tracing info, etc."
+        "type": "record",
+        "name": "EventHeaders",
+        "fields": [
+          {
+            "name": "eventId",
+            "type": "string",
+            "doc": "Unique ID for traceability"
+          },
+          {
+            "name": "sourceSystem",
+            "type": "string",
+            "doc": "Source system identifier (e.g., MQ, FILE, KAFKA)"
+          },
+          {
+            "name": "targetSystem",
+            "type": "string",
+            "doc": "Target system identifier"
+          },
+          {
+            "name": "topicName",
+            "type": "string",
+            "doc": "Kafka topic name for routing"
+          },
+          {
+            "name": "eventType",
+            "type": "string",
+            "doc": "Type of event or data (e.g., CustomerCreated, FileUpload, etc.)"
+          },
+          {
+            "name": "timestamp",
+            "type": "long",
+            "doc": "Epoch timestamp of message creation"
+          },
+          {
+            "name": "payloadSchemaVersion",
+            "type": "string",
+            "doc": "Version of the payload schema"
+          }
+        ]
+      }
+    },
+    {
+      "name": "payload",
+      "type": {
+        "type": "record",
+        "name": "EventPayload",
+        "fields": [
+          {
+            "name": "payload",
+            "type": "string",
+            "doc": "Raw payload as a string"
+          }
+        ]
+      }
     }
   ]
 }

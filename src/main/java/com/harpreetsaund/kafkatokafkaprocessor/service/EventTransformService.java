@@ -1,15 +1,12 @@
 package com.harpreetsaund.kafkatokafkaprocessor.service;
 
 import com.harpreetsaund.kafkatokafkaprocessor.mapper.TransactionEventMapper;
-import com.harpreetsaund.common.avro.EventEnvelope;
-import com.harpreetsaund.transaction.avro.Transaction;
+import com.harpreetsaund.raw.transaction.avro.RawTransactionEvent;
+import com.harpreetsaund.transaction.avro.TransactionEvent;
 import org.springframework.integration.support.MessageBuilder;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
-
-import java.time.Instant;
-import java.util.UUID;
 
 @Service
 public class EventTransformService {
@@ -20,22 +17,13 @@ public class EventTransformService {
         this.transactionEventMapper = transactionEventMapper;
     }
 
-    public Message<com.harpreetsaund.transaction.avro.EventEnvelope> transformEvent(Message<EventEnvelope> message) {
-        EventEnvelope rawEventEnvelope = message.getPayload();
+    public Message<TransactionEvent> transformEvent(Message<RawTransactionEvent> message) {
+        RawTransactionEvent rawTransactionEvent = message.getPayload();
 
-        Transaction transaction = transactionEventMapper.toTransactionEvent(rawEventEnvelope.getPayload());
+        TransactionEvent transactionEvent = transactionEventMapper.toTransactionEvent(rawTransactionEvent);
 
-        com.harpreetsaund.transaction.avro.EventEnvelope transactionEventEnvelope = new com.harpreetsaund.transaction.avro.EventEnvelope();
-        transactionEventEnvelope.setEventId(UUID.randomUUID().toString());
-        transactionEventEnvelope.setEventType(rawEventEnvelope.getEventType());
-        transactionEventEnvelope.setSourceSystem(rawEventEnvelope.getSourceSystem());
-        transactionEventEnvelope.setTargetSystem(rawEventEnvelope.getTargetSystem());
-        transactionEventEnvelope.setTopicName(rawEventEnvelope.getTopicName());
-        transactionEventEnvelope.setTransaction(transaction);
-        transactionEventEnvelope.setTimestamp(Instant.now().toEpochMilli());
-
-        return MessageBuilder.withPayload(transactionEventEnvelope).copyHeaders(message.getHeaders()) //
-                .setHeader(KafkaHeaders.KEY, transactionEventEnvelope.getEventId()) //
+        return MessageBuilder.withPayload(transactionEvent).copyHeaders(message.getHeaders()) //
+                .setHeader(KafkaHeaders.KEY, transactionEvent.getHeaders().getEventId()) //
                 .build();
     }
 }
