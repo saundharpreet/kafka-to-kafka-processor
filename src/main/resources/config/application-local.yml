@@ -26,3 +26,6 @@ recovery-channel:
 logging:
   level:
     com.harpreetsaund: DEBUG
+
+server:
+  port: 0

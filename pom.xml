@@ -10,7 +10,6 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.example</groupId>
     <artifactId>kafka-to-kafka-processor</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -25,6 +24,10 @@
         <url>https://github.com/saundharpreet/kafka-to-kafka-processor</url>
         <tag>HEAD</tag>
     </scm>
+
+    <properties>
+        <kafka-serializer.version>1.0.0</kafka-serializer.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -51,21 +54,17 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro</artifactId>
+            <groupId>com.harpreetsaund</groupId>
+            <artifactId>kafka-serializer</artifactId>
+            <version>${kafka-serializer.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>io.confluent</groupId>
-            <artifactId>kafka-avro-serializer</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-devtools</artifactId>-->
-<!--            <scope>runtime</scope>-->
-<!--            <optional>true</optional>-->
-<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

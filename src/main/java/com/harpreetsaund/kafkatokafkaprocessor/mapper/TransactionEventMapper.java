@@ -26,6 +26,7 @@ public class TransactionEventMapper {
         eventHeaders.setTargetSystem("Kafka");
         eventHeaders.setTopicName(outboundTopic);
         eventHeaders.setTimestamp(Instant.now().toEpochMilli());
+        eventHeaders.setPayloadSchemaVersion("1");
 
         String rawPayload = rawTransactionEvent.getPayload().getPayload();
 

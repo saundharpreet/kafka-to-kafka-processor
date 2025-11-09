@@ -1,33 +1,309 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
+################################################################################
+# GLOBAL SYSTEM FILES
+################################################################################
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
 
-### IntelliJ IDEA ###
-.idea
+# Linux
+*~
+.nfs*
+
+################################################################################
+# IDE / EDITOR FILES
+################################################################################
+# IntelliJ IDEA / JetBrains
+.idea/
 *.iws
 *.iml
 *.ipr
+out/
+classes/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+# Eclipse
+.project
+.classpath
+.settings/
+bin/
+tmp/
 
-### VS Code ###
+# VS Code
 .vscode/
+.history/
+.code-workspace
+
+# NetBeans
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+################################################################################
+# BUILD SYSTEMS / DEPENDENCIES
+################################################################################
+# Maven
+target/
+dependency-reduced-pom.xml
+release.properties
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Node.js / Frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+dist/
+build/
+.next/
+.nuxt/
+.svelte-kit/
+.cache/
+coverage/
+.vite/
+storybook-static/
+out/
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.manifest
+*.spec
+.env/
+venv/
+ENV/
+env.bak/
+*.sqlite3
+
+################################################################################
+# JAVA / JVM / SPRING BOOT
+################################################################################
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+replay_pid*
+spring.log
+*.log
+logs/
+*.out
+
+################################################################################
+# DATABASE / DATA FILES
+################################################################################
+*.db
+*.sqlite
+*.sqlite3
+*.pdb
+*.mdb
+*.sql
+*.bak
+*.csv
+*.tsv
+*.dat
+
+################################################################################
+# DOCKER / CONTAINERS
+################################################################################
+.dockerignore
+Dockerfile.local
+docker-compose.override.yml
+docker-compose.local.yml
+docker-compose-dev.yml
+docker-data/
+*.tar
+*.pid
+
+################################################################################
+# TEST / COVERAGE / TEMP
+################################################################################
+coverage/
+*.lcov
+*.gcda
+*.gcno
+*.gcov
+.nyc_output/
+test-output/
+junit/
+reports/
+*.tmp
+*.temp
+tmp/
+temp/
+*.swp
+*.swo
+
+################################################################################
+# LOGS
+################################################################################
+*.log
+*.trace
+*.err
+*.out
+logs/
+log/
+nohup.out
+
+################################################################################
+# SECURITY / CREDENTIALS
+################################################################################
+*.pem
+*.key
+*.crt
+*.csr
+*.p12
+*.jks
+*.keystore
+*.kdb
+*.asc
+*.gpg
+*.env
+*.vault
+secrets/
+credentials/
+.envrc
+vault/
+config/local-*
+config/*.local.*
+
+################################################################################
+# iOS / Swift / Xcode
+################################################################################
+# Build artifacts
+build/
+DerivedData/
+*.xcuserstate
+*.xcscmblueprint
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+*.xcworkspace/
+*.playground/
+*.moved-aside
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# SwiftPM
+.build/
+.swiftpm/
+
+################################################################################
+# ANDROID
+################################################################################
+.gradle/
+local.properties
+*.iml
+.gradle/
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+outputs/
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+################################################################################
+# ENVIRONMENT / TOOLS
+################################################################################
+.envrc
+.env.local
+.env.development
+.env.production
+.env.test
+*.local
+*.dev
+*.test
+*.bak
+*.old
+*.tmp
+*.swp
+
+################################################################################
+# PROJECT MANAGEMENT
+################################################################################
+.idea/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+*.sw?
+.projectile
+tags
+TAGS
+.session
+
+################################################################################
+# OTHER COMMONS
+################################################################################
+# Archives
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# Backup files
+*.bak
+*.orig
+*.rej
+*.save
+*.swo
+*.swp
+*~
+
+# Temporary
+tmp/
+temp/
+.cache/
+.cache-loader/
+*.pid
+*.seed
+*.pid.lock
+*.tmp
+
+################################################################################
+# PERSONAL / SYSTEM
+################################################################################
+*.icloud
+*.icloud.*
+*.icloud-*
+*.icloud-sync
+.trash/
+.localhistory/

@@ -8,6 +8,8 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class EventTransformService {
 
@@ -17,13 +19,19 @@ public class EventTransformService {
         this.transactionEventMapper = transactionEventMapper;
     }
 
-    public Message<TransactionEvent> transformEvent(Message<RawTransactionEvent> message) {
+    public Message<TransactionEvent> transformRawTransactionEvent(Message<RawTransactionEvent> message) {
         RawTransactionEvent rawTransactionEvent = message.getPayload();
 
         TransactionEvent transactionEvent = transactionEventMapper.toTransactionEvent(rawTransactionEvent);
 
         return MessageBuilder.withPayload(transactionEvent).copyHeaders(message.getHeaders()) //
                 .setHeader(KafkaHeaders.KEY, transactionEvent.getHeaders().getEventId()) //
+                .build();
+    }
+
+    public Message<String> transformErroredEvent(Message<?> message) {
+        return MessageBuilder.withPayload(message.toString()).copyHeaders(message.getHeaders()) //
+                .setHeader(KafkaHeaders.KEY, UUID.randomUUID().toString()) //
                 .build();
     }
 }

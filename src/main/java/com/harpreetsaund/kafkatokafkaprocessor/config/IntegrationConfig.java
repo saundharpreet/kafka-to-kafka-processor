@@ -7,6 +7,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.integration.channel.QueueChannel;
 import org.springframework.integration.config.EnableIntegration;
 import org.springframework.integration.dsl.MessageChannels;
 import org.springframework.kafka.core.ConsumerFactory;
@@ -39,6 +41,12 @@ public class IntegrationConfig implements InitializingBean {
     @Bean
     public MessageChannel outboundKafkaFailureChannel() {
         return MessageChannels.direct().getObject();
+    }
+
+    @Bean
+    @Primary
+    public QueueChannel errorChannel() {
+        return MessageChannels.queue(500).getObject();
     }
 
     @Bean(name = "containerProperties")

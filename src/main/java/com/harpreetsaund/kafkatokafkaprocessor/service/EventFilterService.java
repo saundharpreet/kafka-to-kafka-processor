@@ -25,28 +25,35 @@ public class EventFilterService {
 
         EventHeaders eventHeaders = rawTransactionEvent.getHeaders();
         if (!StringUtils.equalsIgnoreCase("Kafka", eventHeaders.getSourceSystem())) {
-            logger.info("Event filtered out: {}", eventHeaders);
+            logger.info("Event filtered due to source system mismatch. Expected 'Kafka' but was '{}'. Headers: {}",
+                    eventHeaders.getSourceSystem(), eventHeaders);
             return Boolean.FALSE;
         }
 
         if (!StringUtils.equalsIgnoreCase("Kafka", eventHeaders.getTargetSystem())) {
-            logger.info("Event filtered out: {}", eventHeaders);
+            logger.info("Event filtered due to target system mismatch. Expected 'Kafka' but was '{}'. Headers: {}",
+                    eventHeaders.getTargetSystem(), eventHeaders);
             return Boolean.FALSE;
         }
 
         if (!StringUtils.equalsIgnoreCase(inboundTopic, eventHeaders.getTopicName())) {
-            logger.info("Event filtered out: {}", eventHeaders);
+            logger.info("Event filtered due to topic mismatch. Expected '{}' but was '{}'. Headers: {}", inboundTopic,
+                    eventHeaders.getTopicName(), eventHeaders);
             return Boolean.FALSE;
         }
 
-        if (!StringUtils.equalsIgnoreCase("Transaction", eventHeaders.getEventType())) {
-            logger.info("Event filtered out: {}", eventHeaders);
+        if (!StringUtils.equalsIgnoreCase("RawTransactionEvent", eventHeaders.getEventType())) {
+            logger.info(
+                    "Event filtered due to event type mismatch. Expected 'RawTransactionEvent' but was '{}'. Headers: {}",
+                    eventHeaders.getEventType(), eventHeaders);
             return Boolean.FALSE;
         }
 
         EventPayload eventPayload = rawTransactionEvent.getPayload();
-        if (StringUtils.length(eventPayload.getPayload()) != 48) {
-            logger.info("Event filtered out: {}", eventPayload);
+        int payloadLength = StringUtils.length(eventPayload.getPayload());
+        if (payloadLength != 48) {
+            logger.info("Event filtered due to payload length mismatch. Expected 48 but was {}. Payload: {}",
+                    payloadLength, eventPayload);
             return Boolean.FALSE;
         }
 

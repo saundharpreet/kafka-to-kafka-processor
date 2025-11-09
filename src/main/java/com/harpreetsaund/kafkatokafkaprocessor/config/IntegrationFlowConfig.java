@@ -27,6 +27,9 @@ public class IntegrationFlowConfig implements InitializingBean {
     @Value("${outbound-channel.topic}")
     private String outboundTopic;
 
+    @Value("${recovery-channel.topic}")
+    private String recoveryTopic;
+
     @Bean
     public IntegrationFlow kafkaToKafkaFlow(
             ConcurrentMessageListenerContainer<String, RawTransactionEvent> listenerContainer,
@@ -36,13 +39,25 @@ public class IntegrationFlowConfig implements InitializingBean {
                 .from(Kafka
                         .messageDrivenChannelAdapter(listenerContainer,
                                 KafkaMessageDrivenChannelAdapter.ListenerMode.record)
-                        .payloadType(RawTransactionEvent.class))
+                        .errorChannel("errorChannel").payloadType(RawTransactionEvent.class))
                 .filter(eventFilterService, "filterEvent", spec -> spec.discardChannel("discardChannel"))
-                .transform(eventTransformService, "transformEvent") //
+                .transform(eventTransformService, "transformRawTransactionEvent")
                 .handle(Kafka.outboundChannelAdapter(kafkaTemplate)
                         .topicExpression(new LiteralExpression(outboundTopic))
                         .sendSuccessChannel("outboundKafkaSuccessChannel")
-                        .sendFailureChannel("outboundKafkaFailureChannel")) //
+                        .sendFailureChannel("outboundKafkaFailureChannel"))
+                .get();
+    }
+
+    @Bean
+    public IntegrationFlow erroredMessageFlow(KafkaTemplate<String, String> dlqKafkaTemplate,
+            EventTransformService eventTransformService) {
+        return IntegrationFlow.from("errorChannel") //
+                .transform(eventTransformService, "transformErroredEvent")
+                .handle(Kafka.outboundChannelAdapter(dlqKafkaTemplate)
+                        .topicExpression(new LiteralExpression(recoveryTopic))
+                        .sendSuccessChannel("outboundKafkaSuccessChannel")
+                        .sendFailureChannel("outboundKafkaFailureChannel"))
                 .get();
     }
 

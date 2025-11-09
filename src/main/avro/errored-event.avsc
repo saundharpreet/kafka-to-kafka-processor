@@ -4,9 +4,9 @@
   "name": "ErroredEvent",
   "fields": [
     {
-      "name": "eventId",
+      "name": "payload",
       "type": "string",
-      "doc": "Unique ID for traceability"
+      "doc": "Raw payload that caused the error"
     }
   ]
 }
