@@ -1,0 +1,12 @@
+{
+  "namespace": "com.harpreetsaund.error.avro",
+  "type": "record",
+  "name": "ErroredEvent",
+  "fields": [
+    {
+      "name": "eventId",
+      "type": "string",
+      "doc": "Unique ID for traceability"
+    }
+  ]
+}
